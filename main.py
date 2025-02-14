@@ -18,8 +18,6 @@ models.Base.metadata.create_all(bind=engine)
 
 app.mount("/static", StaticFiles(directory="static"), name="static")
 # Define the upload directory
-UPLOAD_DIR = "static/uploads"
-os.makedirs(UPLOAD_DIR, exist_ok=True)
 
 app.include_router(auth.router)
 app.include_router(todos.router)
