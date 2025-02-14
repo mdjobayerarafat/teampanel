@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Dashboard</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: linear-gradient(45deg, #333, #4b0082, #800080, #7b68ee, #4682b4);
+            background-size: 400% 400%;
+            animation: gradient 15s ease infinite;
+            margin: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+
+        @keyframes gradient {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+
+        .dashboard-container {
+            background-color: rgba(255, 255, 255, 0.9);
+            padding: 40px;
+            border-radius: 20px;
+            box-shadow: 0 0 10px rgba(255, 255, 255, 0.136);
+            width: 100%;
+            max-width: 600px;
+            text-align: center;
+        }
+
+        .dashboard-container h1 {
+            margin-bottom: 20px;
+            color: #333;
+        }
+
+        .dashboard-container a {
+            display: inline-block;
+            padding: 10px 20px;
+            background: linear-gradient(to right, red, blue);
+            border: none;
+            border-radius: 5px;
+            color: white;
+            text-decoration: none;
+            font-size: 16px;
+            margin-bottom: 20px;
+            transition: background-color 0.3s ease;
+        }
+
+        .dashboard-container a:hover {
+            background-color: #45a04900;
+        }
+
+        .todo-list {
+            list-style-type: none;
+            padding: 0;
+        }
+
+        .todo-list li {
+            background: #f4f4f4;
+            margin: 10px 0;
+            padding: 15px;
+            border-radius: 5px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .todo-list li a {
+            margin-left: 10px;
+            color: #007bff;
+            text-decoration: none;
+        }
+
+        .todo-list li a:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+    <div class="dashboard-container">
+        <h1>Admin Dashboard</h1>
+        <a href="/teams/add-member">Add New Member</a>
+        <ul class="todo-list">
+            {% for todo in todos %}
+                <li>
+                    <span>{{ todo.name }} - {{ todo.position }}</span>
+                    <div>
+                        <a href="/teams/edit-member/{{ todo.id }}">Edit</a>
+                        <a href="/teams/delete/{{ todo.id }}">Delete</a>
+                        </a>
+                    </div>
+                </li>
+            {% endfor %}
+        </ul>
+    </div>
+</body>
+</html>

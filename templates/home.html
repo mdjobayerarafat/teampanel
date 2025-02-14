@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Team Profile</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: linear-gradient(45deg, #333, #4b0082, #800080, #7b68ee, #4682b4);
+            background-size: 400% 400%;
+            animation: gradient 15s ease infinite;
+            margin: 0;
+            padding: 0;
+        }
+
+        @keyframes gradient {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+
+        .container {
+            width: 90%;
+            margin: auto;
+            overflow: hidden;
+        }
+
+        header {
+            background: #7c7b7b71;
+            color: #fff;
+            padding-top: 20px;
+            min-height: 60px;
+            border-bottom: #77aaff 3px solid;
+        }
+
+        header a {
+            color: #fff;
+            text-decoration: none;
+            text-transform: uppercase;
+            font-size: 16px;
+        }
+
+        header ul {
+            padding: 0;
+            list-style: none;
+            text-align: center;
+        }
+
+        header li {
+            display: inline-block;
+            padding: 0 15px;
+        }
+
+        header #branding {
+            float: left;
+        }
+
+        header #branding h1 {
+            margin: 0;
+            font-size: 24px;
+        }
+
+        header nav {
+            float: right;
+            margin-top: 10px;
+        }
+
+        .team {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-around;
+            margin-top: 20px;
+        }
+
+        .member {
+            background: #fff;
+            margin: 10px;
+            padding: 20px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            width: 30%;
+            text-align: center;
+            box-sizing: border-box;
+        }
+
+        .member img {
+            width: 100px;
+            height: 100px;
+            border-radius: 50%;
+        }
+
+        .member h2 {
+            margin: 10px 0;
+            font-size: 20px;
+        }
+
+        .member p {
+            color: #777;
+            font-size: 14px;
+        }
+
+        .member button {
+            margin: 5px;
+            background: none;
+            border: none;
+            cursor: pointer;
+        }
+
+        .member button img {
+            width: 20px;
+            height: 20px;
+        }
+
+        /* Responsive Styles */
+        @media (max-width: 768px) {
+            header #branding h1 {
+                font-size: 20px;
+            }
+
+            header nav {
+                float: none;
+                text-align: center;
+                margin-top: 10px;
+            }
+
+            header li {
+                display: block;
+                padding: 10px 0;
+            }
+
+            .member {
+                width: 45%;
+            }
+        }
+
+        @media (max-width: 480px) {
+            header #branding h1 {
+                font-size: 18px;
+            }
+
+            .member {
+                width: 100%;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="container">
+            <div id="branding">
+                <h1>DTD 3.0 Panel</h1>
+            </div>
+            <nav>
+                <ul>
+                    <li><a href="#">Home</a></li>
+                    <li><a href="/notice.html">Notice</a></li>
+                    <li><a href="#">Contact</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <div class="container">
+        <section class="team">
+            {% for todo in todos %}
+            <div class="member">
+                <img src="{{ todo.profile_picture or '#' }}" alt="Profile Picture">
+                <h2>{{ todo.name }}</h2>
+                <p><strong>Position:</strong> {{ todo.position }}</p>
+                <p>ID: {{ todo.main }}</p>
+                <p>Contact: {{ todo.number }}</p>
+                <p>Mail: {{ todo.mail }}</p>
+                <div>
+                    <button onclick="window.location.href='{{ todo.website or '#' }}'">
+                        <img src="/static/asset/link_12484011.png" alt="Website">
+                    </button>
+                    <button onclick="window.location.href='{{ todo.github or '#' }}'">
+                        <img src="/static/asset/github-mark.png" alt="GitHub">
+                    </button>
+                    <button onclick="window.location.href='{{ todo.facebook or '#' }}'">
+                        <img src="/static/asset/facebook_5968764.png" alt="Facebook">
+                    </button>
+                    <button onclick="window.location.href='mailto:{{ todo.mail or '#' }}'">
+                        <img src="/static/asset/icons8-mail-94.png" alt="Mail">
+                    </button>
+                </div>
+            </div>
+            {% endfor %}
+        </section>
+    </div>
+</body>
+</html>

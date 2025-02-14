@@ -1,0 +1,256 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Profile Page</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: linear-gradient(45deg, #333, #4b0082, #800080, #7b68ee, #4682b4);
+            background-size: 400% 400%;
+            animation: gradient 15s ease infinite;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            margin: 0;
+            color: white;
+        }
+
+        @keyframes gradient {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+
+        header {
+            background: #68686886;
+            color: #fff;
+            padding-top: 30px;
+            min-height: 70px;
+            border-bottom: #77aaff 3px solid;
+            width: 100%;
+            text-align: center;
+        }
+
+        header a {
+            color: #fff;
+            text-decoration: none;
+            text-transform: uppercase;
+            font-size: 16px;
+        }
+
+        header ul {
+            padding: 0;
+            list-style: none;
+        }
+
+        header li {
+            display: inline;
+            padding: 0 20px;
+        }
+
+        header #branding h1 {
+            margin: 0;
+        }
+
+        .member {
+            text-align: center;
+            margin: 20px;
+            background-color: #ffffff3a;
+            padding: 20px;
+            border-radius: 20px;
+            box-shadow: 0 0 10px rgba(255, 255, 255, 0.136);
+            width: 80%;
+            max-width: 400px;
+        }
+
+        .member img {
+            border-radius: 50%;
+            width: 150px;
+            height: 150px;
+        }
+
+        .member h2 {
+            margin: 10px 0;
+        }
+
+        .member p {
+            margin: 5px 0;
+        }
+
+        .member button {
+            background: none;
+            border: none;
+            cursor: pointer;
+            margin: 5px;
+        }
+
+        .member button img {
+            width: 20px;
+            height: 20px;
+        }
+
+        #messageBox {
+            background-color: #ffffff3a;
+            padding: 20px;
+            border-radius: 20px;
+            box-shadow: 0 0 10px rgba(255, 255, 255, 0.136);
+            margin: 20px;
+            text-align: center;
+            width: 80%;
+            max-width: 500px;
+        }
+
+        #messageBox textarea {
+            width: 100%;
+            padding: 10px;
+            margin: 10px 0;
+            border: 1px solid #09cbe0;
+            border-radius: 5px;
+            box-sizing: border-box;
+        }
+
+        #messageBox button {
+            padding: 10px;
+            background: linear-gradient(to right, red, rgb(255, 0, 0));
+            border: none;
+            border-radius: 5px;
+            color: white;
+            font-size: 16px;
+            cursor: pointer;
+        }
+
+        #messageBox button:hover {
+            background-color: #45a04900;
+        }
+
+        .view-panel-button {
+            background-color: #4CAF50;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            font-size: 16px;
+            cursor: pointer;
+            margin: 20px;
+        }
+
+        /* Responsive Styles */
+        @media (max-width: 768px) {
+            .member {
+                width: 90%;
+                padding: 15px;
+            }
+
+            .member img {
+                width: 120px;
+                height: 120px;
+            }
+
+            #messageBox {
+                width: 90%;
+                padding: 15px;
+            }
+
+            #messageBox textarea {
+                width: 100%;
+            }
+
+            .view-panel-button {
+                width: 90%;
+                font-size: 14px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .member {
+                width: 95%;
+                padding: 10px;
+            }
+
+            .member img {
+                width: 100px;
+                height: 100px;
+            }
+
+            #messageBox {
+                width: 95%;
+                padding: 10px;
+            }
+
+            .view-panel-button {
+                width: 95%;
+                font-size: 12px;
+            }
+        }
+    </style>
+</head>
+<body>
+    {% if todo %}
+    <div class="member">
+        <img src="{{ todo.profile_picture }}" alt="Profile Picture">
+        <h2>{{ todo.name }}</h2>
+        <p><strong>Position:</strong> {{ todo.position }}</p>
+        <p>ID: {{ todo.main }}</p>
+        <p>Contact: {{ todo.number }}</p>
+        <p>Mail: {{ todo.mail }}</p>
+        <div>
+            <button onclick="window.location.href='{{ todo.website }}'">
+                <img src="static/asset/link_12484011.png" alt="Website">
+            </button>
+            <button onclick="window.location.href='{{ todo.github }}'">
+                <img src="static/asset/github-mark.png" alt="GitHub">
+            </button>
+            <button onclick="window.location.href='{{ todo.facebook }}'">
+                <img src="static/asset/facebook_5968764.png" alt="Facebook">
+            </button>
+            <button onclick="window.location.href='mailto:{{ todo.mail }}'">
+                <img src="static/asset/icons8-mail-94.png" alt="Mail">
+            </button>
+        </div>
+    </div>
+    {% else %}
+    <p>{{ msg }}</p>
+    {% endif %}
+
+    <div>
+        <button class="view-panel-button" onclick="window.location.href='/teams'">View Panel Members</button>
+    </div>
+
+    <div id="messageBox">
+        <h3>Send a Message to Tech Support</h3>
+        <textarea id="messageContent" rows="4" placeholder="Type your message here..."></textarea><br>
+        <button onclick="sendMessage()">Send Message</button>
+    </div>
+
+    <script>
+        function sendMessage() {
+            const message = document.getElementById('messageContent').value;
+            if (message.trim() === '') {
+                alert('Please enter a message.');
+                return;
+            }
+
+            const webhookURL = '{{ todo.webhook }}';
+            const request = new XMLHttpRequest();
+            request.open('POST', webhookURL);
+            request.setRequestHeader('Content-type', 'application/json');
+
+            const params = {
+                content: message
+            };
+
+            request.send(JSON.stringify(params));
+            request.onload = function() {
+                if (request.status >= 200 && request.status < 300) {
+                    alert('Message sent successfully!');
+                    document.getElementById('messageContent').value = '';
+                } else {
+                    alert('Failed to send message.');
+                }
+            };
+        }
+    </script>
+</body>
+</html>

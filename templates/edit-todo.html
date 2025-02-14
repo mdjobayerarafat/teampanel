@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Edit Todo</title>
+    <style>
+        /* General body styling */
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: #f4f4f9;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+
+        /* Container for the form */
+        .form-container {
+            background: #ffffff;
+            padding: 2rem;
+            border-radius: 8px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            width: 100%;
+            max-width: 400px;
+        }
+
+        /* Form header */
+        h1 {
+            text-align: center;
+            color: #333;
+            margin-bottom: 1.5rem;
+            font-size: 1.8rem;
+        }
+
+        /* Form labels */
+        label {
+            display: block;
+            margin-bottom: 0.5rem;
+            color: #555;
+            font-weight: bold;
+        }
+
+        /* Form inputs */
+        input[type="text"] {
+            width: 100%;
+            padding: 0.75rem;
+            margin-bottom: 1rem;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            font-size: 1rem;
+            box-sizing: border-box;
+        }
+
+        input[type="text"]:focus {
+            border-color: #007bff;
+            outline: none;
+            box-shadow: 0 0 5px rgba(0, 123, 255, 0.5);
+        }
+
+        /* Submit button */
+        button[type="submit"] {
+            width: 100%;
+            padding: 0.75rem;
+            background-color: #007bff;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        button[type="submit"]:hover {
+            background-color: #0056b3;
+        }
+
+        /* Optional: Add some spacing between form elements */
+        br {
+            display: none; /* Remove <br> tags for better spacing control */
+        }
+    </style>
+</head>
+<body>
+    <div class="form-container">
+        <h1>Edit Todo</h1>
+        <form method="post">
+            <label for="name">Name:</label>
+            <input type="text" id="name" name="name" value="{{ todo.name }}" required>
+
+            <label for="position">Position:</label>
+            <input type="text" id="position" name="position" value="{{ todo.position }}" required>
+
+            <label for="number">Number:</label>
+            <input type="text" id="number" name="number" value="{{ todo.number }}" required>
+
+            <label for="main">Main:</label>
+            <input type="text" id="main" name="main" value="{{ todo.main }}" required>
+
+            <label for="webhook">Webhook:</label>
+            <input type="text" id="webhook" name="webhook" value="{{ todo.webhook or '' }}">
+
+            <label for="profile_picture">Profile Picture URL:</label>
+             <input type="file" name="profile_picture" accept="image/*">
+
+            <label for="mail">Mail:</label>
+            <input type="text" id="mail" name="mail" value="{{ todo.mail or '' }}">
+
+            <label for="website">Website:</label>
+            <input type="text" id="website" name="website" value="{{ todo.website or '' }}">
+
+            <label for="facebook">Facebook:</label>
+            <input type="text" id="facebook" name="facebook" value="{{ todo.facebook or '' }}">
+
+            <label for="github">Github:</label>
+            <input type="text" id="github" name="github" value="{{ todo.github or '' }}">
+
+            <button type="submit">Save</button>
+        </form>
+    </div>
+</body>
+</html>
