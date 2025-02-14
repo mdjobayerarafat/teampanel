@@ -23,7 +23,7 @@ from fastapi.templating import Jinja2Templates
 
 router = APIRouter(
     prefix="/teams",
-    tags=["todos"],
+    tags=["teams"],
     responses={404: {"description": "Not found"}}
 )
 # Define the upload directory
