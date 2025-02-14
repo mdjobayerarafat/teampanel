@@ -76,7 +76,7 @@ async def create_todo(
     number: str = Form(...),
     main: str = Form(...),
     webhook: Optional[str] = Form(None),
-    profile_picture: UploadFile = File(None),
+    profile_picture: Optional[str] = Form(None),  # Changed to accept a string (URL)
     mail: Optional[str] = Form(None),
     website: Optional[str] = Form(None),
     facebook: Optional[str] = Form(None),
@@ -87,15 +87,8 @@ async def create_todo(
     if user is None:
         return RedirectResponse(url="/auth", status_code=status.HTTP_302_FOUND)
 
-    # Save the uploaded file (if any)
-    profile_picture_url = None
-    if profile_picture:
-        file_extension = profile_picture.filename.split(".")[-1]
-        unique_filename = f"{user.get('id')}_{name}_profile.{file_extension}"
-        file_path = os.path.join(UPLOAD_DIR, unique_filename)
-        with open(file_path, "wb") as buffer:
-            buffer.write(await profile_picture.read())
-        profile_picture_url = f"/static/uploads/{unique_filename}"
+    # No need to handle file uploads; directly use the provided URL
+    profile_picture_url = profile_picture  # Use the provided URL directly
 
     # Create the todo model
     todo_model = models.Todos()
@@ -108,7 +101,7 @@ async def create_todo(
     todo_model.github = github
     todo_model.facebook = facebook
     todo_model.webhook = webhook
-    todo_model.profile_picture = profile_picture_url
+    todo_model.profile_picture = profile_picture_url  # Assign the URL directly
     todo_model.complete = False
     todo_model.owner_id = user.get("id")
 
@@ -136,7 +129,7 @@ async def edit_todo_commit(
     number: str = Form(...),
     main: str = Form(...),
     webhook: Optional[str] = Form(None),
-    profile_picture: UploadFile = File(None),
+    profile_picture: Optional[str] = Form(None),  # Changed to accept a string (URL)
     mail: Optional[str] = Form(None),
     website: Optional[str] = Form(None),
     facebook: Optional[str] = Form(None),
@@ -149,14 +142,9 @@ async def edit_todo_commit(
 
     todo_model = db.query(models.Todos).filter(models.Todos.id == todo_id).first()
 
-    # Save the uploaded file (if any)
+    # Update the profile picture URL directly
     if profile_picture:
-        file_extension = profile_picture.filename.split(".")[-1]
-        unique_filename = f"{user.get('id')}_{name}_profile.{file_extension}"
-        file_path = os.path.join(UPLOAD_DIR, unique_filename)
-        with open(file_path, "wb") as buffer:
-            buffer.write(await profile_picture.read())
-        todo_model.profile_picture = f"/static/uploads/{unique_filename}"
+        todo_model.profile_picture = profile_picture  # Assign the URL directly
 
     # Update the todo model
     todo_model.name = name

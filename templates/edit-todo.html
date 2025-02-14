@@ -85,7 +85,7 @@
 </head>
 <body>
     <div class="form-container">
-        <h1>Edit Todo</h1>
+        <h1>Edit Team</h1>
         <form method="post">
             <label for="name">Name:</label>
             <input type="text" id="name" name="name" value="{{ todo.name }}" required>
@@ -103,7 +103,7 @@
             <input type="text" id="webhook" name="webhook" value="{{ todo.webhook or '' }}">
 
             <label for="profile_picture">Profile Picture URL:</label>
-             <input type="file" name="profile_picture" accept="image/*">
+           <input type="text" id="profile_picture" name="profile_picture">
 
             <label for="mail">Mail:</label>
             <input type="text" id="mail" name="mail" value="{{ todo.mail or '' }}">
